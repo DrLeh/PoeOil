@@ -60,8 +60,8 @@ namespace PoeOil
 
         public override bool Equals(object obj)
         {
-            return obj is Oil oil &&
-                   Tier == oil.Tier;
+            return (obj is int i && Tier == i) 
+                || (obj is Oil oil && Tier == oil.Tier);
         }
 
         public override int GetHashCode()
@@ -73,6 +73,9 @@ namespace PoeOil
         {
             return Name;
         }
+
+        public static implicit operator Oil(int i) => new Oil(i);
+        public static implicit operator int(Oil o) => o.Tier;
 
 
     }

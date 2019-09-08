@@ -7,6 +7,7 @@ namespace PoeOil
 {
     public class Passive
     {
+        public int Index { get; set; }
         public string Name { get; set; }
         public string Effect { get; set; }
 
@@ -14,11 +15,11 @@ namespace PoeOil
         public Oil B { get; set; }
         public Oil C { get; set; }
 
-        public List<int> AllOils => new[] { A.Tier, B.Tier, C.Tier }.ToList();
+        public List<Oil> AllOils => new[] { A, B, C }.ToList();
 
 
         //tier / count
-        public Dictionary<int, int> GetRequirements() => BuildOilDictionary(new[] { A, B, C });
+        public Dictionary<int, int> GetRequirements() => BuildOilDictionary(new[] { A, B, C }.ToList());
 
         public static Dictionary<int, int> BuildOilDictionary(IEnumerable<Oil> oils)
         {
@@ -32,7 +33,7 @@ namespace PoeOil
                     dict[tier] = 1;
             }
 
-            foreach(var oil in oils)
+            foreach (var oil in oils)
             {
                 Add(oil.Tier);
             }
@@ -41,6 +42,7 @@ namespace PoeOil
         }
 
 
+        //fast
         public bool MeetsRequirements(Dictionary<int, int> owned)
         {
             var reqs = GetRequirements();
@@ -50,6 +52,46 @@ namespace PoeOil
             {
                 if (owned.GetValueOrDefault(req.Key) < req.Value)
                     return false;
+            }
+
+            return true;
+        }
+
+
+        //slow
+        public bool MeetsRequirementsWithUpconversion(IEnumerable<Oil> input)
+        {
+            //make local copies
+            var reqs = AllOils.ToList();
+            var oils = input.ToList();
+
+            var reqsMet = 0;
+
+            //find any that match 100%
+            foreach (var req in reqs.ToList())
+            {
+                if (oils.Contains(req))
+                {
+                    reqsMet++;
+                    oils.Remove(req);
+                    reqs.Remove(req);
+                }
+            }
+
+            if (reqsMet == 3)
+                return true;
+
+
+            var oilCollection = new OilCollection(oils);
+            //start from the lowest tier, try to upconvert
+            foreach (var req in reqs.OrderBy(x => x.Tier))
+            {
+                if (!oilCollection.TryUpconvertTo(req))
+                    return false;
+
+                reqsMet++;
+                oilCollection.Oils.Remove(req);
+                reqs.Remove(req);
             }
 
             return true;

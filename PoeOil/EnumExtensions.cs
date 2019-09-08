@@ -23,5 +23,10 @@ namespace PoeOil
             }
             return ConsoleColor.White;
         }
+
+        public static IEnumerable<TEnum> GetValues<TEnum>(this TEnum value)
+        {
+            return Enum.GetValues(value.GetType()).Cast<TEnum>();
+        }
     }
 }

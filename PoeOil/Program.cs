@@ -33,7 +33,7 @@ namespace PoeOil
                 var dict = Passive.BuildOilDictionary(oils);
 
                 Terminal.Green($"\nNodes Available:");
-                var available = PassiveList.AllPassives.Where(x => x.MeetsRequrirements(dict));
+                var available = PassiveList.AllPassives.Where(x => x.MeetsRequirements(dict));
 
 
                 foreach (var p in available)

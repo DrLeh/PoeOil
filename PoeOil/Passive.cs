@@ -41,7 +41,7 @@ namespace PoeOil
         }
 
 
-        public bool MeetsRequrirements(Dictionary<int, int> owned)
+        public bool MeetsRequirements(Dictionary<int, int> owned)
         {
             var reqs = GetRequirements();
 

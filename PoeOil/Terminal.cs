@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-
 using System.Linq;
 using C = System.Console;
-using Newtonsoft.Json;
 
 namespace PoeOil
 {
@@ -128,45 +126,6 @@ namespace PoeOil
             }
             C.WriteLine();
             return res.Trim();
-        }
-
-        //for printing things as json objects. Makes it easy to see what an object contains when debugging
-        public static class Json
-        {
-            static string Serialize(object obj)  => JsonConvert.SerializeObject(obj);
-
-            public static void PrintColor(ConsoleColor color, object obj)
-            {
-                var serialized = Serialize(obj);
-                Terminal.PrintColor(color, serialized);
-            }
-
-            public static void PrintLineColor(ConsoleColor color, object obj)
-            {
-                PrintColor(color, obj);
-                C.WriteLine();
-            }
-
-            public static void Green(object obj)
-            {
-                PrintLineColor(ConsoleColor.Green, obj);
-            }
-            public static void Red(object obj)
-            {
-                PrintLineColor(ConsoleColor.Red, obj);
-            }
-            public static void Blue(object obj)
-            {
-                PrintLineColor(ConsoleColor.Blue, obj);
-            }
-            public static void Cyan(object obj)
-            {
-                PrintLineColor(ConsoleColor.DarkCyan, obj);
-            }
-            public static void White(object obj)
-            {
-                PrintLineColor(ConsoleColor.White, obj);
-            }
         }
     }
 }

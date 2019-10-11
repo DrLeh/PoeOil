@@ -77,7 +77,7 @@ namespace PoeOil.Wpf
                 output.AppendLine($"\n{p.Effect}\n");
             }
             Output = output.ToString();
-            Passives = new ObservableCollection<PassiveViewModel>(result.Select(x => new PassiveViewModel(x)));
+            Passives = new ObservableCollection<PassiveViewModel>(result.Select(x => new PassiveViewModel(x, Prices)));
         }
 
         private string _Output;
@@ -86,11 +86,12 @@ namespace PoeOil.Wpf
         private ICommand _CalculateCommand;
         public ICommand CalculateCommand { get { return _CalculateCommand ?? (_CalculateCommand = new RelayCommand(Calculate)); } }
 
+        public Dictionary<Oil, double> Prices { get; set; }
 
         private void LoadPrices()
         {
-            var data = NinjaGateway.GetOilData();
-            foreach(var datum in data)
+            Prices = NinjaGateway.GetOilData();
+            foreach(var datum in Prices)
             {
                 var oil = Oils.Where(x => x.Oil.Tier == datum.Key.Tier).FirstOrDefault();
                 if (oil == null)
@@ -138,16 +139,30 @@ namespace PoeOil.Wpf
 
     public class PassiveViewModel
     {
-        public PassiveViewModel(Passive passive)
+        public PassiveViewModel(Passive passive, Dictionary<Oil, double> chaosValues)
         {
             Passive = passive;
+            A = new OilViewModel { Oil = Passive.A, ChaosValue = chaosValues?.GetValueOrDefault(Passive.A) };
+            B = new OilViewModel { Oil = Passive.B, ChaosValue = chaosValues?.GetValueOrDefault(Passive.B) };
+            C = new OilViewModel { Oil = Passive.C, ChaosValue = chaosValues?.GetValueOrDefault(Passive.C) };
+        }
+
+        public double? TotalPrice
+        {
+            get
+            {
+                var ret = A.ChaosValue.GetValueOrDefault() + B.ChaosValue.GetValueOrDefault() + C.ChaosValue.GetValueOrDefault();
+                if (ret == 0)
+                    return null;
+                return ret;
+            }
         }
 
         public Passive Passive { get; }
 
-        public OilViewModel A => new OilViewModel { Oil = Passive.A };
-        public OilViewModel B => new OilViewModel { Oil = Passive.B };
-        public OilViewModel C => new OilViewModel { Oil = Passive.C };
+        public OilViewModel A { get; }
+        public OilViewModel B { get; }
+        public OilViewModel C { get; }
     }
 
     public class RelayCommand : ICommand

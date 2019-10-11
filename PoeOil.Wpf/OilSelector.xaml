@@ -23,8 +23,7 @@
         </StackPanel>
         <StackPanel Orientation="Horizontal">
             <TextBlock Text="{Binding ChaosValue}"></TextBlock>
-            <Image Source="../Resources/chaos.png" Height="20" Width="20
-" Visibility="{Binding ChaosValue, Converter={StaticResource nullVis}}"></Image>
+            <Image Margin="2 0 0 0"  Source="../Resources/chaos.png" Height="20" Width="20" Visibility="{Binding ChaosValue, Converter={StaticResource nullVis}}"></Image>
         </StackPanel>
     </StackPanel>
 </UserControl>

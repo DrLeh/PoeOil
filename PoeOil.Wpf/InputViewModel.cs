@@ -42,6 +42,9 @@ namespace PoeOil.Wpf
             AllowUpconvert = true;
         }
 
+        public string VersionNumber => "v1.0";
+        public string Title => $"PoeOil {VersionNumber}";
+
         private bool _AllowUpconvert;
         public bool AllowUpconvert { get => _AllowUpconvert; set { _AllowUpconvert = value; NotifyPropertyChanged(); } }
 

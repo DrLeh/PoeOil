@@ -10,6 +10,7 @@
     <None Remove="Resources\amber.png" />
     <None Remove="Resources\azure.png" />
     <None Remove="Resources\black.png" />
+    <None Remove="Resources\chaos.png" />
     <None Remove="Resources\clear.png" />
     <None Remove="Resources\crimson.png" />
     <None Remove="Resources\golden.png" />
@@ -30,6 +31,7 @@
     <Resource Include="Resources\amber.png" />
     <Resource Include="Resources\azure.png" />
     <Resource Include="Resources\black.png" />
+    <Resource Include="Resources\chaos.png" />
     <Resource Include="Resources\clear.png" />
     <Resource Include="Resources\crimson.png" />
     <Resource Include="Resources\golden.png" />

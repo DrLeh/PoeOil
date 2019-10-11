@@ -7,7 +7,7 @@ namespace PoeOil
 {
     public class PassiveAnalyzer
     {
-        public void Analyze(List<Oil> oils, bool upConvert)
+        public IEnumerable<Passive> Analyze(List<Oil> oils, bool upConvert)
         {
             var dict = Passive.BuildOilDictionary(oils);
 
@@ -26,6 +26,7 @@ namespace PoeOil
 
             foreach (var p in available)
             {
+                yield return p;
                 Terminal.PrintColor(p.A.Type.GetColor(), $"{p.A}");
                 Terminal.PrintColor(ConsoleColor.White, $" + ");
                 Terminal.PrintColor(p.B.Type.GetColor(), $"{p.B}");

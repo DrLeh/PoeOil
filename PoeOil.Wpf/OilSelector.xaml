@@ -11,7 +11,7 @@
         <TextBlock Text="{Binding Oil.Type}"></TextBlock>
         <StackPanel Orientation="Horizontal">
             <TextBlock>Count:</TextBlock>
-            <TextBox Text="{Binding Count}"></TextBox>
+            <TextBox Margin="5 0" Width="25" Text="{Binding Count}"></TextBox>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
             <Button Command="{Binding AddCommand}" Margin="5" Width="20">+</Button>

@@ -38,12 +38,14 @@ namespace PoeOil.Wpf
                 new OilViewModel { Oil = 11 },
                 new OilViewModel { Oil = 12 },
             });
+            AllowUpconvert = true;
         }
 
+        private bool _AllowUpconvert;
+        public bool AllowUpconvert { get => _AllowUpconvert; set { _AllowUpconvert = value; NotifyPropertyChanged(); } }
 
         private ObservableCollection<OilViewModel> _Oils;
         public ObservableCollection<OilViewModel> Oils { get => _Oils; set { _Oils = value; NotifyPropertyChanged(); } }
-
 
         private ObservableCollection<PassiveViewModel> _Passives;
         public ObservableCollection<PassiveViewModel> Passives { get => _Passives; set { _Passives = value; NotifyPropertyChanged(); } }
@@ -56,7 +58,7 @@ namespace PoeOil.Wpf
                 .SelectMany(x => Enumerable.Range(0, x.Count)
                     .Select(y => x.Oil))
                 .ToList();
-            var result = analyzer.Analyze(oils, true);
+            var result = analyzer.Analyze(oils, AllowUpconvert);
 
             var output = new StringBuilder();
             foreach (var p in result)

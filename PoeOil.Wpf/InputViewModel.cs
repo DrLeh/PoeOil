@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PoeOil.PoeNinjaApi;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -81,6 +82,23 @@ namespace PoeOil.Wpf
 
         private ICommand _CalculateCommand;
         public ICommand CalculateCommand { get { return _CalculateCommand ?? (_CalculateCommand = new RelayCommand(Calculate)); } }
+
+
+        private void LoadPrices()
+        {
+            var data = NinjaGateway.GetOilData();
+            foreach(var datum in data)
+            {
+                var oil = Oils.Where(x => x.Oil.Tier == datum.Key.Tier).FirstOrDefault();
+                if (oil == null)
+                    continue;
+                oil.ChaosValue = datum.Value;
+            }
+            NotifyPropertyChanged(nameof(Oils));
+        }
+
+        private ICommand _LoadPricesCommand;
+        public ICommand LoadPricesCommand { get { return _LoadPricesCommand ?? (_LoadPricesCommand = new RelayCommand(LoadPrices)); } }
     }
 
     public class OilViewModel : BaseViewModel
@@ -92,6 +110,8 @@ namespace PoeOil.Wpf
 
         public string Url => @$"C:\projects\poeoil\content\{Oil.Type.ToString()}.png";
 
+        private double? _ChaosValue;
+        public double? ChaosValue { get => _ChaosValue; set { _ChaosValue = value; NotifyPropertyChanged(); } }
 
         private void Add()
         {
@@ -101,6 +121,8 @@ namespace PoeOil.Wpf
         private void Subtract()
         {
             Count--;
+            if (Count < 0)
+                Count = 0;
         }
 
         private ICommand _AddCommand;

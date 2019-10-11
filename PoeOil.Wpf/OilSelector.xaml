@@ -4,18 +4,26 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PoeOil.Wpf"
+             xmlns:conv="clr-namespace:PoeOil.Wpf.Converters"
              mc:Ignorable="d" 
-             d:DesignHeight="100" d:DesignWidth="100" Background="White">
+             d:DesignHeight="100" d:DesignWidth="100">
+    <UserControl.Resources>
+        <conv:NullVisibilityConverter x:Key="nullVis"/>
+    </UserControl.Resources>
     <StackPanel>
         <Image Source="{Binding Url}" Height="40" Width="40"></Image>
         <TextBlock Text="{Binding Oil.Type}"></TextBlock>
         <StackPanel Orientation="Horizontal">
-            <TextBlock>Count:</TextBlock>
-            <TextBox Margin="5 0" Width="25" Text="{Binding Count}"></TextBox>
+            <TextBlock>Stock:</TextBlock>
+            <TextBox Margin="5 0" Width="23" Text="{Binding Count}"></TextBox>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
-            <Button Command="{Binding AddCommand}" Margin="5" Width="20">+</Button>
             <Button Command="{Binding SubtractCommand}" Margin="5" Width="20">-</Button>
+            <Button Command="{Binding AddCommand}" Margin="5" Width="20">+</Button>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="{Binding ChaosValue}"></TextBlock>
+            <TextBlock Text="c" Visibility="{Binding ChaosValue, Converter={StaticResource nullVis}}"></TextBlock>
         </StackPanel>
     </StackPanel>
 </UserControl>

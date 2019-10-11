@@ -7,8 +7,38 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\amber.png" />
+    <None Remove="Resources\azure.png" />
+    <None Remove="Resources\black.png" />
+    <None Remove="Resources\clear.png" />
+    <None Remove="Resources\crimson.png" />
+    <None Remove="Resources\golden.png" />
+    <None Remove="Resources\opalescent.png" />
+    <None Remove="Resources\sepia.png" />
+    <None Remove="Resources\silver.png" />
+    <None Remove="Resources\teal.png" />
+    <None Remove="Resources\verdant.png" />
+    <None Remove="Resources\violet.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\PoeNinjaApi\PoeNinjaApi.csproj" />
     <ProjectReference Include="..\PoeOil\PoeOil.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\amber.png" />
+    <Resource Include="Resources\azure.png" />
+    <Resource Include="Resources\black.png" />
+    <Resource Include="Resources\clear.png" />
+    <Resource Include="Resources\crimson.png" />
+    <Resource Include="Resources\golden.png" />
+    <Resource Include="Resources\opalescent.png" />
+    <Resource Include="Resources\sepia.png" />
+    <Resource Include="Resources\silver.png" />
+    <Resource Include="Resources\teal.png" />
+    <Resource Include="Resources\verdant.png" />
+    <Resource Include="Resources\violet.png" />
   </ItemGroup>
 
   <ItemGroup>

@@ -108,7 +108,7 @@ namespace PoeOil.Wpf
         private int _Count;
         public int Count { get => _Count; set { _Count = value; NotifyPropertyChanged(); } }
 
-        public string Url => @$"C:\projects\poeoil\content\{Oil.Type.ToString()}.png";
+        public string Url => @$"../Resources/{Oil.Type.ToString()}.png";
 
         private double? _ChaosValue;
         public double? ChaosValue { get => _ChaosValue; set { _ChaosValue = value; NotifyPropertyChanged(); } }
